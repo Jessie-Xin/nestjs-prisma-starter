@@ -8,9 +8,11 @@ generator client {
   // previewFeatures = []
 }
 
-generator dbml {
-  provider = "prisma-dbml-generator"
-}
+// 暂时注释掉 dbml generator，可能存在版本兼容问题
+// generator dbml {
+//   provider = "prisma-dbml-generator"
+//   output   = "./dbml"
+// }
 
 model User {
   id        String   @id @default(cuid())
