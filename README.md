@@ -1,167 +1,183 @@
-# Instructions
+# NestJS Prisma 启动模板
 
-Starter template for 😻 [NestJS](https://nestjs.com/) and [Prisma](https://www.prisma.io/).
+😻 [NestJS](https://nestjs.com/) 和 [Prisma](https://www.prisma.io/) 的启动模板。
 
-> Checkout [NestJS Prisma Schematics](https://github.com/marcjulian/nestjs-prisma) to automatically add Prisma support to your Nest application.
+> 查看 [NestJS Prisma Schematics](https://github.com/marcjulian/nestjs-prisma) 以自动为你的 Nest 应用程序添加 Prisma 支持。
 
-## Version
+## 版本
 
-| Branch                                                                                                       |  Nest | Prisma                                               |  Graphql                                                              |
-| ------------------------------------------------------------------------------------------------------------ | ----- | ---------------------------------------------------- | --------------------------------------------------------------------- |
-| main                                                                                                       | v9    | [v4](https://github.com/prisma/prisma)         | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first)  |
-| [nest-8-prisma-3](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-8-prisma-3)                                                                                                       | v8    | [v3](https://github.com/prisma/prisma)         | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first)  |
-| [nest-7](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-7)                                                                                                       | v7    | [v2](https://github.com/prisma/prisma2)         | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first)  |
-| [nest-6-prisma2-code-first](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-6-prisma2-code-first) | v6    | [v2-preview](https://github.com/prisma/prisma2) | [Code-first](https://github.com/19majkel94/type-graphql)              |
-| [nest-6-code-first](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-6-code-first)         | v6    | [v1](https://github.com/prisma/prisma)               | [Code-first](https://github.com/19majkel94/type-graphql)              |
-| [nest-6-sdl-first](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-6-sdl-first)                                                                                        | v6    | [v1](https://github.com/prisma/prisma)               | [SDL First](https://docs.nestjs.com/graphql/quick-start#schema-first) |
-| [nest-5](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-5)                     | v5    | [v1](https://github.com/prisma/prisma)               | [SDL First](https://docs.nestjs.com/graphql/quick-start#schema-first) |
+| 分支                                                                                                       | Nest  | Prisma                                          | GraphQL                                                               | Apollo Server | Node.js |
+| ------------------------------------------------------------------------------------------------------------ | ----- | ----------------------------------------------- | --------------------------------------------------------------------- | ------------- | ------- |
+| upgrade-dependencies (当前分支)                                                                               | v11   | [v6](https://github.com/prisma/prisma)          | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first) | v5            | v18+    |
+| main                                                                                                         | v9    | [v4](https://github.com/prisma/prisma)          | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first) | v3            | v16     |
+| [nest-8-prisma-3](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-8-prisma-3)             | v8    | [v3](https://github.com/prisma/prisma)          | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first) | -             | -       |
+| [nest-7](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-7)                               | v7    | [v2](https://github.com/prisma/prisma2)         | [Code-first](https://docs.nestjs.com/graphql/quick-start#code-first) | -             | -       |
+| [nest-6-prisma2-code-first](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-6-prisma2-code-first) | v6    | [v2-preview](https://github.com/prisma/prisma2) | [Code-first](https://github.com/19majkel94/type-graphql)             | -             | -       |
+| [nest-6-code-first](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-6-code-first)         | v6    | [v1](https://github.com/prisma/prisma)          | [Code-first](https://github.com/19majkel94/type-graphql)             | -             | -       |
+| [nest-6-sdl-first](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-6-sdl-first)           | v6    | [v1](https://github.com/prisma/prisma)          | [SDL First](https://docs.nestjs.com/graphql/quick-start#schema-first)| -             | -       |
+| [nest-5](https://github.com/fivethree-team/nestjs-prisma-starter/tree/nest-5)                               | v5    | [v1](https://github.com/prisma/prisma)          | [SDL First](https://docs.nestjs.com/graphql/quick-start#schema-first)| -             | -       |
 
-## Features
+> **注意**：当前 `upgrade-dependencies` 分支已从 NestJS v10/Prisma v5/Node v16 升级至 **NestJS v11/Prisma v6/Apollo Server v5/Node v18+**，并启用 SWC 构建器以获得更快的构建速度。
 
-- GraphQL w/ [playground](https://github.com/prisma/graphql-playground)
-- Code-First w/ [decorators](https://docs.nestjs.com/graphql/quick-start#code-first)
-- [Prisma](https://www.prisma.io/) for database modelling, migration and type-safe access (Postgres, MySQL & MongoDB)
-- 🔐 JWT authentication w/ [passport-jwt](https://github.com/mikenicholson/passport-jwt)
-- REST API docs w/ [Swagger](https://swagger.io/)
+## 功能特性
 
-## Overview
+- 🚀 GraphQL，使用 [Apollo Server v5](https://www.apollographql.com/docs/apollo-server/) 和 [playground](https://github.com/prisma/graphql-playground)
+- 📝 Code-First 方式，使用 [装饰器](https://docs.nestjs.com/graphql/quick-start#code-first) - schema 自动从 TypeScript 类生成
+- 🗄️ [Prisma v6](https://www.prisma.io/) 用于数据库建模、迁移和类型安全访问（支持 PostgreSQL、MySQL 和 MongoDB）
+- 🔐 JWT 身份认证，使用 [passport-jwt](https://github.com/mikenicholson/passport-jwt)
+- ✨ REST API 文档，使用 [Swagger](https://swagger.io/)
+- 🔄 GraphQL Subscriptions 实时更新支持
+- 📄 游标分页，使用 [Relay cursor connections](https://relay.dev/graphql/connections.htm)
+- ⚡ SWC 构建器加快编译速度
+- 🐳 Docker 和 Docker Compose 支持
+- ✅ 使用 Jest 进行单元测试和 E2E 测试
+- 📏 ESLint 9 扁平配置格式
+- 💅 Prettier 代码格式化
 
-- [Instructions](#instructions)
-  - [Features](#features)
-  - [Overview](#overview)
-  - [Prisma Setup](#prisma-setup)
-    - [1. Install Dependencies](#1-install-dependencies)
-    - [2. PostgreSQL with Docker](#2-PostgreSQL-with-docker)
-    - [3. Prisma: Prisma Migrate](#3-prisma-prisma-migrate)
-    - [4. Prisma: Prisma Client JS](#4-prisma-client-js)
-    - [5. Seed the database data with this script](#5-seed-the-database-data-with-this-script)
-    - [6. Start NestJS Server](#6-start-nestjs-server)
+## 目录
+
+- [NestJS Prisma 启动模板](#nestjs-prisma-启动模板)
+  - [版本](#版本)
+  - [功能特性](#功能特性)
+  - [目录](#目录)
+  - [Prisma 设置](#prisma-设置)
+    - [1. 安装依赖](#1-安装依赖)
+    - [2. 使用 Docker 配置 PostgreSQL](#2-使用-docker-配置-postgresql)
+    - [3. Prisma 迁移](#3-prisma-迁移)
+    - [4. Prisma Client JS](#4-prisma-client-js)
+    - [5. 数据库种子数据](#5-数据库种子数据)
+    - [6. 启动 NestJS 服务器](#6-启动-nestjs-服务器)
   - [GraphQL Playground](#graphql-playground)
   - [Rest Api](#rest-api)
   - [Docker](#docker)
-  - [Schema Development](#schema-development)
+    - [Docker Compose](#docker-compose)
+  - [Schema 开发](#schema-开发)
   - [NestJS - Api Schema](#nestjs---api-schema)
     - [Resolver](#resolver)
-  - [GraphQL Client](#graphql-client)
+  - [GraphQL 客户端](#graphql-客户端)
     - [Angular](#angular)
-      - [Setup](#setup)
-      - [Queries](#queries)
-      - [Mutations](#mutations)
-      - [Subscriptions](#subscriptions)
-      - [Authentication](#authentication)
+      - [设置](#设置)
+      - [查询](#查询)
+      - [变更](#变更)
+      - [订阅](#订阅)
+      - [身份验证](#身份验证)
 
-## Prisma Setup
+## Prisma 设置
 
-### 1. Install Dependencies
+### 1. 安装依赖
 
-Install [Nestjs CLI](https://docs.nestjs.com/cli/usages) to start and [generate CRUD resources](https://trilon.io/blog/introducing-cli-generators-crud-api-in-1-minute)
+安装 [Nestjs CLI](https://docs.nestjs.com/cli/usages) 以启动和[生成 CRUD 资源](https://trilon.io/blog/introducing-cli-generators-crud-api-in-1-minute)
 
 ```bash
 # npm
 npm i -g @nestjs/cli
 # yarn
-yarn add -g @nestjs/cli
+yarn global add @nestjs/cli
+# pnpm
+pnpm add -g @nestjs/cli
 ```
 
-Install the dependencies for the Nest application:
+安装 Nest 应用程序的依赖项：
 
 ```bash
 # npm
 npm install
 # yarn
 yarn install
+# pnpm
+pnpm install
 ```
 
-### 2. PostgreSQL with Docker
+### 2. 使用 Docker 配置 PostgreSQL
 
-Setup a development PostgreSQL with Docker. Copy [.env.example](./.env.example) and rename to `.env` - `cp .env.example .env` - which sets the required environments for PostgreSQL such as `POSTGRES_USER`, `POSTGRES_PASSWORD` and `POSTGRES_DB`. Update the variables as you wish and select a strong password.
+使用 Docker 设置开发环境的 PostgreSQL。复制 [.env.example](./.env.example) 并重命名为 `.env` - `cp .env.example .env` - 这将设置 PostgreSQL 所需的环境变量，如 `POSTGRES_USER`、`POSTGRES_PASSWORD` 和 `POSTGRES_DB`。根据需要更新变量并选择一个强密码。
 
-Start the PostgreSQL database
+启动 PostgreSQL 数据库
 
 ```bash
-docker-compose -f docker-compose.db.yml up -d
-# or
+docker compose -f docker-compose.db.yml up -d
+# 或
 npm run docker:db
 ```
 
-### 3. Prisma Migrate
+### 3. Prisma 迁移
 
-[Prisma Migrate](https://github.com/prisma/prisma2/tree/master/docs/prisma-migrate) is used to manage the schema and migration of the database. Prisma datasource requires an environment variable `DATABASE_URL` for the connection to the PostgreSQL database. Prisma reads the `DATABASE_URL` from the root [.env](./.env) file.
+[Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate) 用于管理数据库的 schema 和迁移。Prisma 数据源需要环境变量 `DATABASE_URL` 来连接 PostgreSQL 数据库。Prisma 从根目录的 [.env](./.env) 文件读取 `DATABASE_URL`。
 
-Use Prisma Migrate in your [development environment](https://www.prisma.io/blog/prisma-migrate-preview-b5eno5g08d0b#evolving-the-schema-in-development) to
+在[开发环境](https://www.prisma.io/docs/guides/migrate/developing-with-prisma-migrate)使用 Prisma Migrate：
 
-1. Creates `migration.sql` file
-2. Updates Database Schema
-3. Generates Prisma Client
+1. 创建 `migration.sql` 文件
+2. 更新数据库 Schema
+3. 生成 Prisma Client
 
 ```bash
 npx prisma migrate dev
-# or
+# 或
 npm run migrate:dev
 ```
 
-If you like to customize your `migration.sql` file run the following command. After making your customizations run `npx prisma migrate dev` to apply it.
+如果你想自定义 `migration.sql` 文件，运行以下命令。自定义后运行 `npx prisma migrate dev` 应用它。
 
 ```bash
 npx prisma migrate dev --create-only
-# or
+# 或
 npm run migrate:dev:create
 ```
 
-If you are happy with your database changes you want to deploy those changes to your [production database](https://www.prisma.io/blog/prisma-migrate-preview-b5eno5g08d0b#applying-migrations-in-production-and-other-environments). Use `prisma migrate deploy` to apply all pending migrations, can also be used in CI/CD pipelines as it works without prompts.
+如果你对数据库更改满意，想要将这些更改部署到[生产数据库](https://www.prisma.io/docs/guides/migrate/production-troubleshooting)。使用 `prisma migrate deploy` 应用所有待处理的迁移，也可在 CI/CD 管道中使用，因为它无需提示即可工作。
 
 ```bash
 npx prisma migrate deploy
-# or
+# 或
 npm run migrate:deploy
 ```
 
-### 4. Prisma: Prisma Client JS
+### 4. Prisma Client JS
 
-[Prisma Client JS](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/api) is a type-safe database client auto-generated based on the data model.
+[Prisma Client JS](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/api) 是一个基于数据模型自动生成的类型安全数据库客户端。
 
-Generate Prisma Client JS by running
+运行以下命令生成 Prisma Client JS
 
-> **Note**: Every time you update [schema.prisma](prisma/schema.prisma) re-generate Prisma Client JS
+> **注意**：每次更新 [schema.prisma](prisma/schema.prisma) 后都需要重新生成 Prisma Client JS
 
 ```bash
 npx prisma generate
-# or
+# 或
 npm run prisma:generate
 ```
 
-### 5. Seed the database data with this script
+### 5. 数据库种子数据
 
-Execute the script with this command:
+使用此脚本为数据库填充种子数据：
 
 ```bash
 npm run seed
 ```
 
-### 6. Start NestJS Server
+### 6. 启动 NestJS 服务器
 
-Run Nest Server in Development mode:
+在开发模式下运行 Nest Server：
 
 ```bash
 npm run start
 
-# watch mode
+# 监视模式
 npm run start:dev
 ```
 
-Run Nest Server in Production mode:
+在生产模式下运行 Nest Server：
 
 ```bash
 npm run start:prod
 ```
 
-GraphQL Playground for the NestJS Server is available here: http://localhost:3000/graphql
+NestJS Server 的 GraphQL Playground 可在此访问：http://localhost:3000/graphql
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
 ## GraphQL Playground
 
-Open up the [example GraphQL queries](graphql/auth.graphql) and copy them to the GraphQL Playground. Some queries and mutations are secured by an auth guard. You have to acquire a JWT token from `signup` or `login`. Add the `accessToken`as followed to **HTTP HEADERS** in the playground and replace `YOURTOKEN` here:
+打开[示例 GraphQL 查询](graphql/auth.graphql)并将它们复制到 GraphQL Playground。某些查询和变更由身份验证守卫保护。你必须从 `signup` 或 `login` 获取 JWT token。将 `accessToken` 添加到 Playground 的 **HTTP HEADERS** 中，如下所示，并将 `YOURTOKEN` 替换为实际 token：
 
 ```json
 {
@@ -171,43 +187,43 @@ Open up the [example GraphQL queries](graphql/auth.graphql) and copy them to the
 
 ## Rest Api
 
-[RESTful API](http://localhost:3000/api) documentation available with Swagger.
+使用 Swagger 提供的 [RESTful API](http://localhost:3000/api) 文档。
 
 ## Docker
 
-Nest server is a Node.js application and it is easily [dockerized](https://nodejs.org/de/docs/guides/nodejs-docker-webapp/).
+Nest server 是一个 Node.js 应用程序，很容易[容器化](https://nodejs.org/de/docs/guides/nodejs-docker-webapp/)。
 
-See the [Dockerfile](./Dockerfile) on how to build a Docker image of your Nest server.
+查看 [Dockerfile](./Dockerfile) 了解如何构建 Nest server 的 Docker 镜像。
 
-Now to build a Docker image of your own Nest server simply run:
+现在构建你自己的 Nest server 的 Docker 镜像：
 
 ```bash
-# give your docker image a name
+# 给你的 docker 镜像命名
 docker build -t <your username>/nest-prisma-server .
-# for example
+# 例如
 docker build -t nest-prisma-server .
 ```
 
-After Docker build your docker image you are ready to start up a docker container running the nest server:
+Docker 构建完镜像后，你就可以启动运行 nest server 的 docker 容器了：
 
 ```bash
 docker run -d -t -p 3000:3000 --env-file .env nest-prisma-server
 ```
 
-Now open up [localhost:3000](http://localhost:3000) to verify that your nest server is running.
+现在打开 [localhost:3000](http://localhost:3000) 验证你的 nest server 是否正在运行。
 
-When you run your NestJS application in a Docker container update your [.env](.env) file
+当你在 Docker 容器中运行 NestJS 应用程序时，更新你的 [.env](.env) 文件
 
 ```diff
 - DB_HOST=localhost
-# replace with name of the database container
+# 替换为数据库容器的名称
 + DB_HOST=postgres
 
-# Prisma database connection
+# Prisma 数据库连接
 + DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer
 ```
 
-If `DATABASE_URL` is missing in the root `.env` file, which is loaded into the Docker container, the NestJS application will exit with the following error:
+如果根目录的 `.env` 文件（被加载到 Docker 容器中）缺少 `DATABASE_URL`，NestJS 应用程序将退出并显示以下错误：
 
 ```bash
 (node:19) UnhandledPromiseRejectionWarning: Error: error: Environment variable not found: DATABASE_URL.
@@ -219,73 +235,73 @@ If `DATABASE_URL` is missing in the root `.env` file, which is loaded into the D
 
 ### Docker Compose
 
-You can also setup a the database and Nest application with the docker-compose
+你也可以使用 docker-compose 设置数据库和 Nest 应用程序
 
 ```bash
-# building new NestJS docker image
-docker-compose build
-# or
+# 构建新的 NestJS docker 镜像
+docker compose build
+# 或
 npm run docker:build
 
-# start docker-compose
-docker-compose up -d
-# or
+# 启动 docker-compose
+docker compose up -d
+# 或
 npm run docker
 ```
 
-## Schema Development
+## Schema 开发
 
-Update the Prisma schema `prisma/schema.prisma` and after that run the following two commands:
+更新 Prisma schema `prisma/schema.prisma`，然后运行以下两个命令：
 
 ```bash
 npx prisma generate
-# or in watch mode
+# 或监视模式
 npx prisma generate --watch
-# or
+# 或
 npm run prisma:generate
 npm run prisma:generate:watch
 ```
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
 ## NestJS - Api Schema
 
-The [schema.graphql](./src/schema.graphql) is generated with [code first approach](https://docs.nestjs.com/graphql/quick-start#code-first) from the models, resolvers and input classes.
+[schema.graphql](./src/schema.graphql) 使用 [code first 方式](https://docs.nestjs.com/graphql/quick-start#code-first)从模型、resolver 和输入类生成。
 
-You can use [class-validator](https://docs.nestjs.com/techniques/validation) to validate your inputs and arguments.
+你可以使用 [class-validator](https://docs.nestjs.com/techniques/validation) 验证你的输入和参数。
 
 ### Resolver
 
-To implement the new query, a new resolver function needs to be added to `users.resolver.ts`.
+要实现新查询，需要在 resolver 文件中添加新的 resolver 函数。
 
 ```ts
-@Query(returns => User)
-async getUser(@Args() args): Promise<User> {
-  return await this.prisma.client.user(args);
+@Query(() => User)
+async getUser(@Args('id') id: string): Promise<User> {
+  return this.usersService.findOne(id);
 }
 ```
 
-Restart the NestJS server and this time the Query to fetch a `user` should work.
+重启 NestJS server，这次获取 `user` 的查询应该可以工作了。
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
-## GraphQL Client
+## GraphQL 客户端
 
-A GraphQL client is necessary to consume the GraphQL api provided by the NestJS Server.
+需要 GraphQL 客户端来使用 NestJS Server 提供的 GraphQL api。
 
-Checkout [Apollo](https://www.apollographql.com/) a popular GraphQL client which offers several clients for React, Angular, Vue.js, Native iOS, Native Android and more.
+查看 [Apollo](https://www.apollographql.com/) - 一个流行的 GraphQL 客户端，为 React、Angular、Vue.js、Native iOS、Native Android 等提供多个客户端。
 
 ### Angular
 
-#### Setup
+#### 设置
 
-To start using [Apollo Angular](https://www.apollographql.com/docs/angular/basics/setup.html) simply run in an Angular and Ionic project:
+要开始在 Angular 和 Ionic 项目中使用 [Apollo Angular](https://www.apollographql.com/docs/angular/basics/setup.html)，只需运行：
 
 ```bash
 ng add apollo-angular
 ```
 
-`HttpLink` from apollo-angular requires the `HttpClient`. Therefore, you need to add the `HttpClientModule` to the `AppModule`:
+`apollo-angular` 的 `HttpLink` 需要 `HttpClient`。因此，你需要将 `HttpClientModule` 添加到 `AppModule`：
 
 ```ts
 imports: [BrowserModule,
@@ -294,33 +310,33 @@ imports: [BrowserModule,
     GraphQLModule],
 ```
 
-You can also add the `GraphQLModule` in the `AppModule` to make `Apollo` available in your Angular App.
+你还可以在 `AppModule` 中添加 `GraphQLModule`，使 `Apollo` 在你的 Angular App 中可用。
 
-You need to set the URL to the NestJS GraphQL Api. Open the file `src/app/graphql.module.ts` and update `uri`:
+你需要设置 NestJS GraphQL Api 的 URL。打开文件 `src/app/graphql.module.ts` 并更新 `uri`：
 
 ```ts
 const uri = 'http://localhost:3000/graphql';
 ```
 
-To use Apollo-Angular you can inject `private apollo: Apollo` into the constructor of a page, component or service.
+要使用 Apollo-Angular，你可以将 `private apollo: Apollo` 注入到页面、组件或服务的构造函数中。
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
-#### Queries
+#### 查询
 
-To execute a query you can use:
+要执行查询，你可以使用：
 
 ```ts
 this.apollo.query({query: YOUR_QUERY});
 
-# or
+# 或
 
 this.apollo.watchQuery({
   query: YOUR_QUERY
 }).valueChanges;
 ```
 
-Here is an example how to fetch your profile from the NestJS GraphQL Api:
+这是一个如何从 NestJS GraphQL Api 获取你的个人资料的示例：
 
 ```ts
 const CurrentUserProfile = gql`
@@ -351,26 +367,26 @@ export class HomePage implements OnInit {
 }
 ```
 
-Use the `AsyncPipe` and [SelectPipe](https://www.apollographql.com/docs/angular/basics/queries.html#select-pipe) to unwrap the data Observable in the template:
+在模板中使用 `AsyncPipe` 和 [SelectPipe](https://www.apollographql.com/docs/angular/basics/queries.html#select-pipe) 解包 data Observable：
 
 ```html
-<div *ngIf="data | async | select: 'me' as me">
-  <p>Me id: {{me.id}}</p>
-  <p>Me email: {{me.email}}</p>
-  <p>Me name: {{me.name}}</p>
+<div *ngIf="data | async | select: 'me' as me">
+  <p>我的 id: {{me.id}}</p>
+  <p>我的 email: {{me.email}}</p>
+  <p>我的 name: {{me.name}}</p>
 </div>
 ```
 
-Or unwrap the data using [RxJs](https://www.apollographql.com/docs/angular/basics/queries.html#rxjs).
+或使用 [RxJs](https://www.apollographql.com/docs/angular/basics/queries.html#rxjs) 解包数据。
 
-This will end up in an `GraphQL error` because `Me` is protected by an `@UseGuards(GqlAuthGuard)` and requires an `Bearer TOKEN`.
-Please refer to the [Authentication](#authentication) section.
+这将导致 `GraphQL error`，因为 `Me` 受到 `@UseGuards(GqlAuthGuard)` 的保护并需要 `Bearer TOKEN`。
+请参阅[身份验证](#身份验证)部分。
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
-#### Mutations
+#### 变更
 
-To execute a mutation you can use:
+要执行变更，你可以使用：
 
 ```ts
 this.apollo.mutate({
@@ -378,17 +394,19 @@ this.apollo.mutate({
 });
 ```
 
-Here is an example how to login into your profile using the `login` Mutation:
+这是一个如何使用 `login` Mutation 登录到你的个人资料的示例：
 
 ```ts
 const Login = gql`
   mutation Login {
     login(email: "test@example.com", password: "pizzaHawaii") {
-      token
+      accessToken
+      refreshToken
       user {
         id
         email
-        name
+        firstname
+        lastname
       }
     }
   }
@@ -412,11 +430,11 @@ export class HomePage implements OnInit {
 }
 ```
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
-#### Subscriptions
+#### 订阅
 
-To execute a subscription you can use:
+要执行订阅，你可以使用：
 
 ```ts
 this.apollo.subscribe({
@@ -424,15 +442,15 @@ this.apollo.subscribe({
 });
 ```
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
 
-#### Authentication
+#### 身份验证
 
-To authenticate your requests you have to add your `TOKEN` you receive on `signup` and `login` [mutation](#mutations) to each request which is protected by the `@UseGuards(GqlAuthGuard)`.
+要验证你的请求，你必须将在 `signup` 和 `login` [变更](#变更)上收到的 `TOKEN` 添加到每个受 `@UseGuards(GqlAuthGuard)` 保护的请求中。
 
-Because the apollo client is using `HttpClient` under the hood you are able to simply use an `Interceptor` to add your token to the requests.
+因为 apollo 客户端在底层使用 `HttpClient`，你可以简单地使用 `Interceptor` 将你的 token 添加到请求中。
 
-Create the following class:
+创建以下类：
 
 ```ts
 import { Injectable } from '@angular/core';
@@ -452,7 +470,7 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = 'YOUR_TOKEN'; // get from local storage
+    const token = 'YOUR_TOKEN'; // 从本地存储获取
     if (token !== undefined) {
       req = req.clone({
         setHeaders: {
@@ -466,7 +484,7 @@ export class TokenInterceptor implements HttpInterceptor {
 }
 ```
 
-Add the Interceptor to the `AppModule` providers like this:
+将 Interceptor 添加到 `AppModule` providers 中，如下所示：
 
 ```ts
 providers: [
@@ -476,6 +494,6 @@ providers: [
   ]
 ```
 
-After you configured the Interceptor and retrieved the `TOKEN` from storage your request will succeed on resolvers with `@UseGuards(GqlAuthGuard)`.
+配置 Interceptor 并从存储中检索 `TOKEN` 后，你的请求将在使用 `@UseGuards(GqlAuthGuard)` 的 resolver 上成功。
 
-**[⬆ back to top](#overview)**
+**[⬆ 返回顶部](#目录)**
