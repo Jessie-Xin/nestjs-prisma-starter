@@ -22,7 +22,7 @@ const config: Config = {
   },
   security: {
     expiresIn: 120, // 2 minutes in seconds
-    refreshIn: '7d',
+    refreshIn: 604800, // 7 days in seconds (7 * 24 * 60 * 60)
     bcryptSaltOrRound: 10,
   },
 };

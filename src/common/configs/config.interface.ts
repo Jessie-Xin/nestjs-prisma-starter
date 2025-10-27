@@ -31,6 +31,6 @@ export interface GraphqlConfig {
 
 export interface SecurityConfig {
   expiresIn: number;
-  refreshIn: string;
+  refreshIn: number;
   bcryptSaltOrRound: string | number;
 }
