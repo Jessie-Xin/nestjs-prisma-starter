@@ -9,8 +9,11 @@ const config: Config = {
   },
   swagger: {
     enabled: true,
-    title: 'Nestjs FTW',
-    description: 'The nestjs API description',
+    title: 'NestJS Prisma Starter API',
+    description:
+      'NestJS Prisma Starter 的 REST API 文档。\n\n' +
+      '注意：本项目主要使用 GraphQL API，请访问 /graphql 使用 GraphQL Playground。\n' +
+      '此处的 REST API 仅用于健康检查和基本操作。',
     version: '1.5',
     path: 'api',
   },

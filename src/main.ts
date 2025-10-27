@@ -34,6 +34,16 @@ async function bootstrap() {
       .setTitle(swaggerConfig.title || 'Nestjs')
       .setDescription(swaggerConfig.description || 'The nestjs API description')
       .setVersion(swaggerConfig.version || '1.0')
+      .addTag('健康检查', '应用健康检查相关接口')
+      .addBearerAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          description: '输入 JWT token',
+        },
+        'JWT-auth',
+      )
       .build();
     const document = SwaggerModule.createDocument(app, options);
 
@@ -45,6 +55,21 @@ async function bootstrap() {
     app.enableCors();
   }
 
-  await app.listen(process.env.PORT || nestConfig.port || 3000);
+  const port = process.env.PORT || nestConfig.port || 3000;
+  await app.listen(port);
+
+  // 启动成功日志
+  console.log('');
+  console.log('🚀 应用启动成功！');
+  console.log('');
+  console.log(`📍 应用地址: http://localhost:${port}`);
+  console.log(`🎮 GraphQL Playground: http://localhost:${port}/graphql`);
+
+  if (swaggerConfig.enabled) {
+    console.log(
+      `📚 Swagger 文档: http://localhost:${port}/${swaggerConfig.path || 'api'}`,
+    );
+  }
+  console.log('');
 }
 bootstrap();
