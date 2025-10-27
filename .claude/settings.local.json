@@ -6,7 +6,11 @@
       "Bash(find:*)",
       "Bash(xargs cat:*)",
       "Bash(pnpm add:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Read(//Users/user/Desktop/xin/monorepo/apps/web/**)",
+      "Bash(curl:*)",
+      "Bash(npm run codegen:*)",
+      "Bash(pnpm typecheck:*)"
     ],
     "deny": [],
     "ask": []
