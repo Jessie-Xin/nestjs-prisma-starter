@@ -10,7 +10,8 @@
       "Read(//Users/user/Desktop/xin/monorepo/apps/web/**)",
       "Bash(curl:*)",
       "Bash(npm run codegen:*)",
-      "Bash(pnpm typecheck:*)"
+      "Bash(pnpm typecheck:*)",
+      "Bash(npm run genql:*)"
     ],
     "deny": [],
     "ask": []
