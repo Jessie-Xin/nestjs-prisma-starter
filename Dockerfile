@@ -1,28 +1,35 @@
 FROM node:20 AS builder
 
+# Install pnpm
+RUN npm install -g pnpm
+
 # Create app directory
 WORKDIR /app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+# Copy package.json, pnpm-lock.yaml and prisma schema
+COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma/
 
 # Install app dependencies
-RUN npm install --legacy-peer-deps
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
 # Generate Prisma Client
-RUN npx prisma generate
+RUN pnpm prisma generate
 
-RUN npm run build
+RUN pnpm run build
 
 FROM node:20
+
+# Install pnpm
+RUN npm install -g pnpm
 
 WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/pnpm-lock.yaml ./
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
