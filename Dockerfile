@@ -1,4 +1,4 @@
-FROM node:20 AS builder
+FROM node:20-alpine AS builder
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -20,7 +20,7 @@ RUN pnpm prisma generate
 
 RUN pnpm run build
 
-FROM node:20
+FROM node:20-alpine
 
 # Install pnpm
 RUN npm install -g pnpm
