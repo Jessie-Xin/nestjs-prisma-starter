@@ -17,7 +17,7 @@ RUN npx prisma generate
 
 RUN npm run build
 
-FROM node:18
+FROM node:20
 
 WORKDIR /app
 
