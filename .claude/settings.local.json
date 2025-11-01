@@ -11,7 +11,8 @@
       "Bash(curl:*)",
       "Bash(npm run codegen:*)",
       "Bash(pnpm typecheck:*)",
-      "Bash(npm run genql:*)"
+      "Bash(npm run genql:*)",
+      "Bash(docker compose:*)"
     ],
     "deny": [],
     "ask": []
