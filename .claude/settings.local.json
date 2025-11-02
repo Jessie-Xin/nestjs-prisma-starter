@@ -12,7 +12,10 @@
       "Bash(npm run codegen:*)",
       "Bash(pnpm typecheck:*)",
       "Bash(npm run genql:*)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker network:*)",
+      "Bash(docker inspect:*)"
     ],
     "deny": [],
     "ask": []

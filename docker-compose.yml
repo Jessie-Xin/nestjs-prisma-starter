@@ -7,9 +7,11 @@ services:
     ports:
       - '3002:3002'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     env_file:
       - .env
+    restart: unless-stopped
 
   postgres:
     image: postgres:15
@@ -21,6 +23,11 @@ services:
       - .env
     volumes:
       - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres:
