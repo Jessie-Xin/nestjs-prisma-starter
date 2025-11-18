@@ -15,7 +15,9 @@
       "Bash(docker compose:*)",
       "Bash(docker exec:*)",
       "Bash(docker network:*)",
-      "Bash(docker inspect:*)"
+      "Bash(docker inspect:*)",
+      "Bash(npm run docker:db:*)",
+      "Bash(npm run migrate:deploy:*)"
     ],
     "deny": [],
     "ask": []

@@ -19,7 +19,8 @@ export class GqlConfigService implements GqlOptionsFactory {
       // subscription
       installSubscriptionHandlers: true,
       includeStacktraceInErrorResponses: graphqlConfig.debug,
-      playground: graphqlConfig.playgroundEnabled,
+      // Apollo Server 4+ 使用 introspection 而非 playground
+      introspection: graphqlConfig.playgroundEnabled,
       context: ({ req }) => ({ req }),
     };
   }
