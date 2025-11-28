@@ -58,7 +58,10 @@
       "Bash(timeout 10 pnpm run start:dev:*)",
       "Bash(timeout 30 pnpm run start:dev:*)",
       "Bash(pnpm run start:dev:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(npx prisma studio)",
+      "Bash(pnpm run migrate:status:*)",
+      "Bash(pnpm run migrate:deploy:*)"
     ],
     "deny": [],
     "ask": []
