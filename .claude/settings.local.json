@@ -61,7 +61,8 @@
       "Bash(pnpm install:*)",
       "Bash(npx prisma studio)",
       "Bash(pnpm run migrate:status:*)",
-      "Bash(pnpm run migrate:deploy:*)"
+      "Bash(pnpm run migrate:deploy:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
