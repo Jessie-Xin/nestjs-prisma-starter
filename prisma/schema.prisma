@@ -1,18 +1,12 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
-  // previewFeatures = []
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
-
-// 暂时注释掉 dbml generator，可能存在版本兼容问题
-// generator dbml {
-//   provider = "prisma-dbml-generator"
-//   output   = "./dbml"
-// }
 
 model User {
   id        String   @id @default(cuid())

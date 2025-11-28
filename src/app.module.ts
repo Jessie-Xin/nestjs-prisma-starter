@@ -1,7 +1,7 @@
 import { GraphQLModule } from '@nestjs/graphql';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaModule } from 'nestjs-prisma';
+import { PrismaModule } from './prisma/prisma.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
@@ -21,9 +21,8 @@ import { GqlConfigService } from './gql-config.service';
       // .env.local 用于本地开发，不会被提交到 git
       envFilePath: ['.env.local', '.env'],
     }),
-    PrismaModule.forRoot({
-      isGlobal: true,
-    }),
+    // Prisma v7 配置: 使用自定义 PrismaModule
+    PrismaModule,
 
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,

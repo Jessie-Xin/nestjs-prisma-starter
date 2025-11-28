@@ -50,7 +50,15 @@
       "Bash(npm run migrate:status:*)",
       "Bash(npm run seed:*)",
       "Bash(pnpm info:*)",
-      "Bash(pnpm view:*)"
+      "Bash(pnpm view:*)",
+      "Bash(pnpm run prisma:generate:*)",
+      "WebFetch(domain:docs.nestjs.com)",
+      "mcp__MCP_DOCKER__fetch",
+      "Bash(pnpm run build)",
+      "Bash(timeout 10 pnpm run start:dev:*)",
+      "Bash(timeout 30 pnpm run start:dev:*)",
+      "Bash(pnpm run start:dev:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "ask": []
