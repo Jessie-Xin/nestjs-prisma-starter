@@ -14,99 +14,116 @@
 
 NestJS Prisma Starter - 使用 NestJS v11、Prisma v6 和 Apollo Server v5 构建的全栈 GraphQL API。采用 JWT 身份验证配合 Passport、PostgreSQL 数据库和 code-first GraphQL 方式。
 
-当前分支 `upgrade-dependencies` 正在从 NestJS v10/Prisma v5/Node v16 升级到最新版本。
+**当前分支：master** - 已从 NestJS v10/Prisma v5/Node v16 升级至 NestJS v11/Prisma v6/Apollo Server v5/Node v18+，并启用 SWC 构建器以获得更快的构建速度。
+
 
 ## 开发命令
 
 ### 基本命令
 ```bash
 # 带监视模式的开发服务器
-npm run start:dev
+pnpm run start:dev
+
+# 普通启动（无监视）
+pnpm run start
 
 # 生产环境构建
-npm run build
+pnpm run build
 
 # 运行生产环境构建
-npm run start:prod
+pnpm run start:prod
 
-# 调试模式
-npm run start:debug
+# 调试模式（带监视）
+pnpm run start:debug
 ```
+
+**注意：** 项目使用 SWC 构建器（配置在 nest-cli.json），构建速度比传统 TypeScript 编译器快约 20 倍。
 
 ### 数据库管理
 ```bash
 # 在开发环境运行迁移（创建 migration.sql、更新 schema、生成客户端）
-npm run migrate:dev
+pnpm run migrate:dev
 
 # 仅创建迁移文件（应用前可自定义）
-npm run migrate:dev:create
+pnpm run migrate:dev:create
 
 # 部署迁移到生产环境（CI/CD 安全，无提示）
-npm run migrate:deploy
+pnpm run migrate:deploy
 
 # 重置数据库（仅开发环境 - 警告：会销毁所有数据）
-npm run migrate:reset
+pnpm run migrate:reset
 
 # 检查迁移状态
-npm run migrate:status
+pnpm run migrate:status
 
 # 生成 Prisma Client（schema.prisma 更改后运行）
-npm run prisma:generate
+pnpm run prisma:generate
 
 # 监视模式生成 Prisma Client
-npm run prisma:generate:watch
+pnpm run prisma:generate:watch
 
 # 打开 Prisma Studio GUI
-npm run prisma:studio
+pnpm run prisma:studio
 
 # 用示例数据填充数据库
-npm run seed
+pnpm run seed
 ```
 
 ### 测试
 ```bash
 # 运行一次单元测试
-npm run test
+pnpm run test
 
 # 监视模式运行测试
-npm run test:watch
+pnpm run test:watch
 
 # 生成覆盖率报告
-npm run test:cov
+pnpm run test:cov
 
-# 运行 E2E ���试
-npm run test:e2e
+# 运行 E2E 测试
+pnpm run test:e2e
 
 # 调试测试
-npm run test:debug
+pnpm run test:debug
 ```
+
+**测试文件位置：**
+- 单元测试：`src/**/*.spec.ts`
+- E2E 测试：`test/**/*.e2e-spec.ts`
 
 ### 代码质量
 ```bash
 # 代码检查并自动修复
-npm run lint
+pnpm run lint
 
 # 使用 Prettier 格式化代码
-npm run format
+pnpm run format
 ```
+
+**注意：** 项目使用 ESLint 9 扁平配置格式（eslint.config.mjs），不再使用传统的 `.eslintrc.js`。
 
 ### Docker
 ```bash
-# 仅启动数据库
-npm run docker:db
+# 仅启动数据库（推荐用于本地开发）
+pnpm run docker:db
 
 # 构建并启动全栈（API + 数据库）
-npm run docker
+pnpm run docker
 
 # 构建 Docker 镜像
-npm run docker:build
+pnpm run docker:build
 
 # 在容器中运行迁移
-npm run docker:migrate
+pnpm run docker:migrate
 
 # 在容器中填充数据库
-npm run docker:seed
+pnpm run docker:seed
 ```
+
+**Docker 配置文件：**
+- `docker-compose.yml` - 完整栈（API + PostgreSQL）
+- `docker-compose.db.yml` - 仅数据库
+- `docker-compose.migrate.yml` - 仅迁移
 
 ## 架构
 
@@ -172,17 +189,28 @@ Posts 通过 `@devoxa/prisma-relay-cursor-connection` 使用 **Relay 游标分�
 
 配置位于 `src/common/configs/`：
 
+- **config.ts** - 主配置文件，定义所有应用配置
+- **config.interface.ts** - 配置类型定义
 - 全局 ConfigModule 在 AppModule 中加载
-- 通过 `ConfigService.get<T>(key)` 访问
-- 环境变量在 `.env` 中（从 `.env.example` 复制）
+- 通过 `ConfigService.get<T>(key)` 访问配置
+- 环境变量优先级：`.env.local` > `.env`（.env.local 不会提交到 git）
 
 必需的环境变量：
 ```bash
 DATABASE_URL=postgresql://user:password@host:port/db?schema=schema
 JWT_ACCESS_SECRET=<secret>
 JWT_REFRESH_SECRET=<secret>
-PORT=3000 (可选)
+PORT=3000 (可选，默认 3000)
 ```
+
+配置项：
+- `nest.port` - 应用端口
+- `cors.enabled` - CORS 开关
+- `swagger.enabled` - Swagger 文档开关
+- `graphql.playgroundEnabled` - GraphQL Playground 开关
+- `security.expiresIn` - JWT 访问令牌过期时间（默认 120 秒）
+- `security.refreshIn` - JWT 刷新令牌过期时间（默认 7 天）
+- `security.bcryptSaltOrRound` - bcrypt 盐轮数（默认 10）
 
 ## 常见开发任务
 
@@ -226,9 +254,9 @@ async createMyModel(
 ### 修改数据库 Schema
 
 1. 更新 `prisma/schema.prisma`
-2. 创建迁移：`npm run migrate:dev:create -- --name descriptive_migration_name`
+2. 创建迁移：`pnpm run migrate:dev:create -- --name descriptive_migration_name`
 3. 在 `prisma/migrations/` 中查看生成的 SQL
-4. 应用迁移：`npm run migrate:dev`
+4. 应用迁移：`pnpm run migrate:dev`
 5. Prisma Client 会自动生成
 
 ### 添加受保护的路由
@@ -272,50 +300,95 @@ this.pubSub.publish('postCreated', { postCreated: newPost });
 
 ## 重要注意事项
 
-### 当前迁移（upgrade-dependencies 分支）
+### 技术栈版本
 
-此分支正在升级：
-- NestJS v10.1.0 → v11.1.7
-- Prisma v5.0.0 → v6.18.0
-- Node.js v16 → v18+
-- ESLint 转为扁平配置格式（eslint.config.mjs）
-- 启用 SWC 构建器以加快构建速度
+当前使用的主要技术栈：
+- **NestJS**: v11.1.7
+- **Prisma**: v6.18.0
+- **Apollo Server**: v5.0.0
+- **GraphQL**: v16.11.0
+- **Node.js**: v18+（推荐 v18 或 v20）
+- **PostgreSQL**: 15（Docker 镜像版本）
+- **TypeScript**: v5.9.3
 
-### 需要注意的破坏性变更
+### 破坏性变更说明
 
-- `.eslintrc.js` 已删除，改用 `eslint.config.mjs`（扁平配置）
-- schema.prisma 中的 DBML 生成器已注释掉，因为存在兼容性问题
-- 某些已弃用的 API 可能需要更新
+从 v10/v5 升级到当前版本的重要变更：
+- `.eslintrc.js` 已删除，改用 `eslint.config.mjs`（ESLint 9 扁平配置）
+- schema.prisma 中的 DBML 生成器已注释掉（版本兼容性问题）
+- NestJS 使用 SWC 构建器代替传统 TypeScript 编译器
+- Apollo Server 从 v3 升级到 v5，使用新的集成方式 `@as-integrations/express5`
 
 ### 使用 Prisma 时
 
-- schema 更改后始终运行 `npm run prisma:generate`
-- 永远不要手动编辑 `src/schema.graphql`（自动生成）
+**必须遵循的规则：**
+- schema 更改后始终运行 `pnpm run prisma:generate`
+- 永远不要手动编辑 `src/schema.graphql`（由 NestJS GraphQL 自动生成）
 - 所有 schema 更改都使用迁移（不要在生产环境使用 `prisma db push`）
 - 种子数据使用预哈希密码以保持一致性
 
+**工作流程：**
+1. 修改 `prisma/schema.prisma`
+2. 运行 `pnpm run migrate:dev:create -- --name your_migration_name` 创建迁移
+3. 检查生成的 SQL 文件（可手动调整）
+4. 运行 `pnpm run migrate:dev` 应用迁移
+5. Prisma Client 会自动重新生成
+
 ### Docker 注意事项
 
-在 Docker 容器��运行时，更新 `.env`：
+**本地开发 vs Docker 环境：**
+
+在 Docker 容器中运行时，需要修改 `.env` 中的数据库主机：
 ```bash
-DB_HOST=postgres  # 而不是 localhost
+# 本地开发
+DB_HOST=localhost
+
+# Docker 环境
+DB_HOST=postgres  # 使用容器名称
+
+# 完整的 DATABASE_URL
 DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer
 ```
 
+**常见问题：**
+- 如果 API 无法连接数据库，检查 `DB_HOST` 设置
+- Docker Compose 中数据库健康检查确保 PostgreSQL 完全启动后才启动 API
+- 数据持久化使用 Docker volume `nest-db`
+
 ### GraphQL Playground
 
-当 `config.graphql.playgroundEnabled = true` 时，访问 http://localhost:3000/graphql
+**访问方式：**
+- URL: http://localhost:3000/graphql
+- 需要在 `src/common/configs/config.ts` 中设置 `config.graphql.playgroundEnabled = true`
 
-对于需要身份验证的请求，添加到 HTTP HEADERS：
+**使用身份验证：**
+
+对于需要身份验证的请求（使用 `@UseGuards(GqlAuthGuard)` 的 resolver），在 HTTP HEADERS 中添加：
 ```json
 {
   "Authorization": "Bearer YOUR_ACCESS_TOKEN"
 }
 ```
 
+**获取 token：**
+1. 使用 `signup` mutation 注册用户
+2. 或使用 `login` mutation 登录
+3. 从响应中获取 `accessToken`
+4. 将 token 添加到请求头中
+
+**示例查询文件：**
+- `graphql/auth.graphql` - 包含认证相关的查询示例
+
 ### Swagger API 文档
 
-当 `config.swagger.enabled = true` 时，REST API 文档可在 http://localhost:3000/api 访问
+**访问方式：**
+- URL: http://localhost:3000/api
+- 需要在 `src/common/configs/config.ts` 中设置 `config.swagger.enabled = true`
+
+**注意：**
+- 本项目主要使用 GraphQL API
+- REST API 仅用于健康检查和基本操作
+- Swagger 文档通过 `@nestjs/swagger/plugin` 自动从代码装饰器生成
 
 ### 延迟字段解析
 
@@ -332,14 +405,49 @@ async author(@Parent() post: Post) {
 
 ## 文件位置快速参考
 
-- **入口点**��`src/main.ts`
+### 核心文件
+- **入口点**：`src/main.ts`
 - **根模块**：`src/app.module.ts`
+- **GraphQL 配置**：`src/gql-config.service.ts`
+
+### 数据库相关
 - **数据库 schema**：`prisma/schema.prisma`
 - **数据库种子**：`prisma/seed.ts`
-- **生成的 GraphQL schema**：`src/schema.graphql`（自动生成）
-- **配置**：`src/common/configs/`
-- **共享装饰器**：`src/common/decorators/`
-- **分页工具**：`src/common/pagination/`
-- **认证逻辑**：`src/auth/auth.service.ts`
-- **JWT 策略**：`src/auth/jwt.strategy.ts`
+- **迁移文件**：`prisma/migrations/`
+
+### GraphQL
+- **生成的 GraphQL schema**：`src/schema.graphql`（自动生成，不要手动编辑）
 - **示例查询**：`graphql/auth.graphql`
+
+### 配置和工具
+- **配置**：`src/common/configs/`
+  - `config.ts` - 主配置文件
+  - `config.interface.ts` - 配置接口
+- **共享装饰器**：`src/common/decorators/`
+  - `user.decorator.ts` - `@UserEntity()` 装饰器
+- **分页工具**：`src/common/pagination/`
+  - `pagination.args.ts` - 分页参数
+- **排序工具**：`src/common/order/`
+- **通用模型**：`src/common/models/`
+
+### 功能模块
+- **认证模块**：`src/auth/`
+  - `auth.service.ts` - 认证逻辑
+  - `auth.resolver.ts` - GraphQL resolvers
+  - `jwt.strategy.ts` - JWT 策略
+  - `password.service.ts` - 密码哈希服务
+  - `gql-auth.guard.ts` - GraphQL 认证守卫
+- **用户模块**：`src/users/`
+- **文章模块**：`src/posts/`
+
+### 测试
+- **单元测试**：`src/**/*.spec.ts`
+- **E2E 测试**：`test/**/*.e2e-spec.ts`
+- **Jest 配置**：`test/jest-e2e.json`
+
+### 构建和工具配置
+- **NestJS CLI**：`nest-cli.json` - 配置 SWC 构建器和插件
+- **TypeScript**：`tsconfig.json`
+- **ESLint**：`eslint.config.mjs` - ESLint 9 扁平配置
+- **Prettier**：`.prettierrc`
+- **Docker**：`Dockerfile`, `docker-compose*.yml`
