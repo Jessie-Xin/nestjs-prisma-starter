@@ -1,3 +1,10 @@
+// 加载并展开环境变量（必须在所有导入之前）
+import * as dotenv from 'dotenv';
+import * as dotenvExpand from 'dotenv-expand';
+
+const myEnv = dotenv.config();
+dotenvExpand.expand(myEnv);
+
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';

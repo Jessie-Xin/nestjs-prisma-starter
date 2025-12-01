@@ -13,13 +13,15 @@ import { Pool } from 'pg';
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
-    // 创建 PostgreSQL 连接池
+    // 创建 PostgreSQL 连接池 - 直接使用 DATABASE_URL
     const pool = new Pool({
       connectionString: process.env.DATABASE_URL,
+      // 设置默认 schema (必须通过 options，因为 pg 不识别 URL 中的 schema 参数)
+      options: `-c search_path=${process.env.DB_SCHEMA || 'public'}`,
     });
 
     // 创建 Prisma PostgreSQL 适配器
-    const adapter = new PrismaPg(pool);
+    const adapter = new PrismaPg(pool, { schema: process.env.DB_SCHEMA });
 
     // 使用适配器初始化 PrismaClient
     super({ adapter });

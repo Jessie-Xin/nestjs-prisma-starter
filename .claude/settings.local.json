@@ -62,7 +62,13 @@
       "Bash(npx prisma studio)",
       "Bash(pnpm run migrate:status:*)",
       "Bash(pnpm run migrate:deploy:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(pnpm run seed:*)",
+      "Bash(DATABASE_URL=\"postgresql://prisma:MyStr0ng!P@ssw0rd2024@localhost:5432/blog?schema=blog&sslmode=disable\" npx ts-node:*)",
+      "Bash(pnpm list:*)",
+      "Bash(echo:*)",
+      "Bash(node:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWltajVvZDUwMDAycWNycXhtcGF2dmZmIiwiaWF0IjoxNzY0NTU5NjE4LCJleHAiOjE3NjQ1NTk3Mzh9.Y2yJ0thct9RrHYaa4J4Qj_0oNtc5wlL0taLBYOTXczM\" curl -s -X POST http://localhost:3000/graphql -H 'Content-Type: application/json' -H \"Authorization: Bearer $TOKEN\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"query { me { id email firstname lastname role posts { id title published } } }\"\"\"\"}')"
     ],
     "deny": [],
     "ask": []
